@@ -1,0 +1,57 @@
+ignorePatterns:
+  - 'node_modules/*'
+  - 'bazel-bin/*'
+  - 'bazel-code/*'
+  - 'bazel-out/*'
+  - 'bazel-testlogs/*'
+  - 'dist/*'
+  - 'frontend/cimclient/graphql/generated/CimSchema.ts'
+  - 'rules/*'
+overrides:
+  - files: ['*.ts']
+    parserOptions:
+      sourceType: module
+      ecmaVersion: 2020
+    extends:
+      - 'google'
+      - 'eslint:recommended'
+      - 'plugin:@typescript-eslint/eslint-recommended'
+      - 'plugin:@typescript-eslint/recommended'
+      - 'prettier' # should be the last
+    plugins:
+      - 'prettier'
+    parser: '@typescript-eslint/parser'
+    rules:
+      prettier/prettier: error
+      valid-jsdoc: off
+      require-jsdoc: off
+      new-cap: off # TODO(egorm): fix false positive on decorators
+      no-var: error
+      prefer-const: error
+      eol-last: error
+      prefer-arrow-callback: error
+      no-trailing-spaces: error
+      no-prototype-builtins: off
+      quotes:
+        - warn
+        - single
+        - avoidEscape: true
+      no-restricted-properties:
+        - error
+        - object: describe
+          property: only
+        - object: it
+          property: only
+      '@typescript-eslint/no-non-null-assertion': off
+      '@typescript-eslint/no-use-before-define': off
+      '@typescript-eslint/no-warning-comments': off
+      '@typescript-eslint/explicit-function-return-type': off
+      '@typescript-eslint/explicit-module-boundary-types': off
+  - files: ['*.html']
+    parser: '@angular-eslint/template-parser'
+    plugins:
+      - '@angular-eslint/template'
+    extends:
+      - 'plugin:@angular-eslint/template/recommended'
+    rules:
+      eol-last: error

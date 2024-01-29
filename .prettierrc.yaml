@@ -1,0 +1,26 @@
+trailingComma: all
+tabWidth: 2
+useTabs: false
+semi: true
+singleQuote: true
+bracketSpacing: false
+plugins:
+  - '@trivago/prettier-plugin-sort-imports'
+
+overrides:
+  - files: '*.ts'
+    options:
+      parser: 'typescript'
+      # imports sorting and organizing
+      importOrder:
+        - '^@angular/(.*)$' # angular libs
+        - '^proto/(.*)$' # protobuf imports
+        - '^((?!(frontend|\.)).*)$' # 3rd party libraries
+        - '^frontend/(.*)' # absolute imports within the project
+        - '^[./]' # relative imports
+      importOrderSeparation: true
+      importOrderSortSpecifiers: true
+      importOrderParserPlugins:
+        - 'typescript'
+        - 'classProperties'
+        - 'decorators-legacy'

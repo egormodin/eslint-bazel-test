@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "module": "es2020",
+        "moduleResolution": "node",
+
+        // Allow uses of these JS APIs
+        "lib": [
+            "dom",
+            // TODO: Add polyfill for new features like error cause?
+            // https://github.com/zloirock/core-js#ecmascript-error
+            "es2022",
+            "es2015.collection",
+            "es2015.iterable",
+            "es2017.object",
+            "es2018.asynciterable",
+            "es2018.promise"
+        ],
+
+        // Permit decorator syntax
+        "experimentalDecorators": true,
+
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+
+        "noImplicitOverride": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+
+        "target": "es6",
+        // If there are problems with import paths resolution, turn it on.
+        "traceResolution": false,
+
+        "baseUrl": "./",
+        "rootDirs": [
+            ".",
+        ],
+    }
+}

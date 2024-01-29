@@ -1,0 +1,22 @@
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@pnpm//:defs.bzl", "npm_link_all_packages")
+
+package(default_visibility = ["//:__subpackages__"])
+
+# Link npm packages
+npm_link_all_packages(name = "node_modules")
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+)
+
+copy_to_bin(
+    name = "eslint_config",
+    srcs = [
+        ".eslintrc.yaml",
+        ".prettierrc.yaml",
+    ],
+    visibility = ["//tools:__subpackages__"],
+)

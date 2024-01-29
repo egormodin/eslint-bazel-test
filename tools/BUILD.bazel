@@ -1,0 +1,45 @@
+load("@py_deps//:requirements.bzl", "entry_point")
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
+
+# If you would like to add, remove, or modify a pre-commit check,
+# edit `code/.pre-commit-config.yaml`.
+sh_binary(
+    name = "pre-commit",
+    srcs = ["pre_commit.sh"],
+    args = ["$(location %s)" % entry_point("pre-commit")],
+    data = [
+        entry_point("pre-commit"),
+        ":eslint",
+    ],
+)
+
+sh_binary(
+    name = "eslint",
+    srcs = ["eslint.sh"],
+    args = ["$(location :eslint_js)"],
+    data = [":eslint_js"],
+    env = {
+        "BAZEL_BINDIR": ".",
+    },
+)
+
+directory_path(
+    name = "eslint_bin",
+    directory = "//:node_modules/eslint/dir",
+    path = "bin/eslint.js",
+)
+
+js_binary(
+    name = "eslint_js",
+    data = [
+        "//:eslint_config",
+        "//:node_modules/@angular-eslint/eslint-plugin-template",
+        "//:node_modules/@angular-eslint/template-parser",
+        "//:node_modules/@typescript-eslint/eslint-plugin",
+        "//:node_modules/eslint-config-google",
+        "//:node_modules/eslint-config-prettier",
+        "//:node_modules/eslint-plugin-prettier",
+    ],
+    entry_point = ":eslint_bin",
+)
